@@ -1,11 +1,6 @@
-from standard_rsa import *
+from file_manager import *
+from utils import *
 
-message = "This is my message!"
-
-encryption_key, decryption_key = generate_keys()
-encrypted_text = encrypt(message, encryption_key)
-decrypted_text = decrypt(encrypted_text, decryption_key)
-
-print("Original Message:", message)
-print("Encrypted message:", encrypted_text)
-print("Decrypted message:", decrypted_text)
+print(encrypt_file("file.txt"))
+dec_key = read_input_key()
+print(decrypt_file("file.txt_enc.bin", dec_key))

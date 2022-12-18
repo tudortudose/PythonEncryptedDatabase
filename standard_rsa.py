@@ -11,7 +11,7 @@ def generate_keys():
 
 def encrypt(message, key):
     encryptor = PKCS1_OAEP.new(RSA.importKey(key.encode()))
-    encrypted = encryptor.encrypt(message.encode())
+    encrypted = encryptor.encrypt(message)
     return encrypted
 
 
