@@ -1,3 +1,9 @@
+"""
+This module handles the database (MySQL) connection & communication:
+-singleton connection;
+-select, insert, delete statements;
+"""
+
 import mysql.connector
 
 HOST_STRING = "localhost"
@@ -8,6 +14,15 @@ DATABASE_INSTANCE = None
 
 
 def connect(host, user, password, database):
+    """
+    Connects to the database;
+
+    :param host: the host for the database;
+    :param user: the user of the database;
+    :param password: the password for the given user;
+    :param database: the database name;
+    :return: a MySql connection object;
+    """
     database = mysql.connector.connect(
         host=host,
         user=user,
@@ -18,6 +33,13 @@ def connect(host, user, password, database):
 
 
 def create_files_table(database):
+    """
+    Creates a new table in the database (files);
+    (Run only once);
+
+    :param database: the database connection object;
+    :return: None.
+    """
     cursor = database.cursor()
     cursor.execute(
         'CREATE TABLE files(id INT AUTO_INCREMENT PRIMARY KEY, '
@@ -26,6 +48,13 @@ def create_files_table(database):
 
 
 def insert_file(database, file_info):
+    """
+    Inserts a new entry in the "files" table;
+
+    :param database: the database connection object;
+    :param file_info: entry data to be inserted;
+    :return: None.
+    """
     cursor = database.cursor()
 
     sql_statement = 'INSERT INTO files (name, location, encryption_alg, key_size) ' \
@@ -38,6 +67,13 @@ def insert_file(database, file_info):
 
 
 def get_file_by_name(database, file_name):
+    """
+    Retrieves an entry with the given name from the "files" table;
+
+    :param database: the database connection object;
+    :param file_name: the name of the file entry;
+    :return: the file entry found.
+    """
     cursor = database.cursor()
     sql_statement = "SELECT * FROM files WHERE name = %s"
     sql_values = (file_name,)
@@ -48,11 +84,25 @@ def get_file_by_name(database, file_name):
 
 
 def file_name_exists(database, file_name):
+    """
+    Checks if a file with a given name exists in the database;
+
+    :param database: the database connection object;
+    :param file_name: the name of the file entry;
+    :return: True, if the searched file exists, False otherwise.
+    """
     result = get_file_by_name(database, file_name)
     return len(result) != 0
 
 
 def delete_file(database, file_name):
+    """
+    Deletes an entry from the "files" table;
+
+    :param database: the database connection object;
+    :param file_name: the name of the file to be deleted;
+    :return: None.
+    """
     cursor = database.cursor()
     sql_statement = "DELETE FROM files WHERE name = %s"
     sql_values = (file_name,)
@@ -62,6 +112,12 @@ def delete_file(database, file_name):
 
 
 def get_database():
+    """
+    Retrieves one instance of the database;
+    (Singleton pattern simulation);
+
+    :return: an instance of the database connection object.
+    """
     global DATABASE_INSTANCE
     if DATABASE_INSTANCE is None:
         DATABASE_INSTANCE = connect(HOST_STRING, USER_STRING, PASSWORD_STRING, DATABASE_STRING)

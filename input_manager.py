@@ -1,3 +1,9 @@
+"""
+The entry point of the application;
+
+This module handles the user interaction with the program,
+i.e. takes the input commands from the user and outputs the corresponding results.
+"""
 from command_manager import *
 
 COMMAND_LIST = "\nCommand List:\n" \
@@ -11,6 +17,12 @@ FEW_ARGUMENTS = "Too Few Arguments Given!"
 
 
 def read_input_key():
+    """
+    Reads the private key from the console;
+    Used to read multiple lines of input;
+
+    :return: the concatenated input lines.
+    """
     print("Enter the Private Key for Decryption:")
     private_key = ""
     while True:
@@ -23,6 +35,12 @@ def read_input_key():
 
 
 def start_input_loop():
+    """
+    Parses user input commands & retrieves the corresponding results,
+    depending on the given input, handling the possible exceptions;
+
+    :return: None.
+    """
     print("Welcome!")
     while True:
         print(COMMAND_LIST)
