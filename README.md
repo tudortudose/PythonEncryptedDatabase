@@ -1,4 +1,4 @@
-# PythonEncryptedDatabase
+# ♣ PythonEncryptedDatabase ♣ ![](https://us-central1-progress-markdown.cloudfunctions.net/progress/100)
 
 ```
 Sa se creeze un tool care sa permita criptarea anumitor fisiere intr-o baza de date.
