@@ -3,14 +3,15 @@ from command_manager import *
 COMMAND_LIST = "\nCommand List:\n" \
                "1) encrypt <file_path> <encrypted_file_name> <key_length>\n" \
                "2) decrypt <encrypted_file_name>\n" \
-               "3) delete <encrypted_file_name>\n"
+               "3) remove <encrypted_file_name>\n" \
+               "4) exit"
 
 UNKNOWN_COMMAND = "Unknown Command!"
 FEW_ARGUMENTS = "Too Few Arguments Given!"
 
 
 def read_input_key():
-    print("Enter the private key:")
+    print("Enter the Private Key for Decryption:")
     private_key = ""
     while True:
         line = input()
@@ -36,7 +37,7 @@ def start_input_loop():
                 check_file_cmd(command[1])
                 decryption_key = read_input_key()
                 print(decrypt_cmd(command[1], decryption_key))
-            elif command[0] == "delete":
+            elif command[0] == "remove":
                 if len(command) != 2: raise Exception(FEW_ARGUMENTS)
                 check_file_cmd(command[1])
                 decryption_key = read_input_key()

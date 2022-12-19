@@ -27,7 +27,8 @@ def encrypt_cmd(file_path, encrypted_file_name, key_length):
         "encryption_alg": "RSA",
         "key_size": key_length
     })
-    return decryption_key
+    return_message = "Your file was successfully encrypted! Here is the Private Key for Decryption:\n" + decryption_key
+    return return_message
 
 
 def check_file_cmd(encrypted_file_name):
@@ -41,7 +42,8 @@ def decrypt_cmd(encrypted_file_name, decryption_key):
     file_info = get_file_by_name(database, encrypted_file_name)[0]
     file_path = file_info[2]
     key_length = int(file_info[4])
-    return decrypt_file(file_path, decryption_key, key_length)
+    return_message = "Here is your decrypted file:\n" + decrypt_file(file_path, decryption_key, key_length)
+    return return_message
 
 
 def remove_cmd(encrypted_file_name, decryption_key):
@@ -51,4 +53,4 @@ def remove_cmd(encrypted_file_name, decryption_key):
     key_length = int(file_info[4])
     decrypt_file(file_path, decryption_key, key_length)
     delete_file(database, encrypted_file_name)
-    return "Successfully removed!"
+    return "Your file was successfully removed!"
