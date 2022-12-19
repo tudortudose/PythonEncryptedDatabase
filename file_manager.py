@@ -1,4 +1,9 @@
-from standard_rsa import *
+import os
+
+from rsa_manager import *
+
+ENCRYPTED_FILES_DIR = "C:\\Users\\tudor\\Desktop\\Faculty\\Year_3\\Sem_1\\PP\\GitProjects\\" \
+                      "PythonEncryptedDatabase\\encrypted_files"
 
 
 def decrypt_file(file, decryption_key):
@@ -16,7 +21,7 @@ def decrypt_file(file, decryption_key):
     return decrypted_text
 
 
-def encrypt_file(file):
+def encrypt_file(file, encrypted_file_name):
     encryption_key, decryption_key = generate_keys()
     encrypted_text = b''
     read_size = 64
@@ -29,6 +34,7 @@ def encrypt_file(file):
 
             encrypted_text += encrypt(file_chunk, encryption_key)
 
-    with open(file + "_enc.bin", 'wb') as f:
+    encrypted_file_path = os.path.join(ENCRYPTED_FILES_DIR, encrypted_file_name)
+    with open(encrypted_file_path, 'wb') as f:
         f.write(encrypted_text)
-    return decryption_key
+    return encrypted_file_path, decryption_key

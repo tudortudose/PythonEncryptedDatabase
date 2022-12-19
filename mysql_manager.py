@@ -1,9 +1,10 @@
 import mysql.connector
 
-HOST = "localhost"
-USER = "root"
-PASSWORD = "root"
-DATABASE = "encrypted_database"
+HOST_STRING = "localhost"
+USER_STRING = "root"
+PASSWORD_STRING = "root"
+DATABASE_STRING = "encrypted_database"
+DATABASE_INSTANCE = None
 
 
 def connect(host, user, password, database):
@@ -60,13 +61,8 @@ def delete_file(database, file_name):
     database.commit()
 
 
-db = connect(HOST, USER, PASSWORD, DATABASE)
-insert_file(db,
-            {
-                "name": "file2",
-                "location": "C:/Users/tudor/Desktop/file2.txt",
-                "encryption_alg": "RSA",
-                "key_size": 1024
-            })
-print(get_file_by_name(db, "file2"))
-delete_file(db, "file2")
+def get_database():
+    global DATABASE_INSTANCE
+    if DATABASE_INSTANCE is None:
+        DATABASE_INSTANCE = connect(HOST_STRING, USER_STRING, PASSWORD_STRING, DATABASE_STRING)
+    return DATABASE_INSTANCE
