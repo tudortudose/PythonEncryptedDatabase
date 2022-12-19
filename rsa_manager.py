@@ -2,8 +2,8 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 
 
-def generate_keys():
-    key_pair = RSA.generate(1024)
+def generate_keys(key_length):
+    key_pair = RSA.generate(key_length)
     public_key = key_pair.publickey().exportKey().decode()
     private_key = key_pair.exportKey().decode()
     return public_key, private_key

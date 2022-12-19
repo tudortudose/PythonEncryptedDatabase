@@ -6,9 +6,9 @@ ENCRYPTED_FILES_DIR = "C:\\Users\\tudor\\Desktop\\Faculty\\Year_3\\Sem_1\\PP\\Gi
                       "PythonEncryptedDatabase\\encrypted_files"
 
 
-def decrypt_file(file, decryption_key):
+def decrypt_file(file, decryption_key, key_length):
     decrypted_text = ''
-    read_size = 128
+    read_size = key_length // 8
 
     with open(file, 'rb') as f:
         while True:
@@ -21,10 +21,10 @@ def decrypt_file(file, decryption_key):
     return decrypted_text
 
 
-def encrypt_file(file, encrypted_file_name):
-    encryption_key, decryption_key = generate_keys()
+def encrypt_file(file, encrypted_file_name, key_length):
+    encryption_key, decryption_key = generate_keys(key_length)
     encrypted_text = b''
-    read_size = 64
+    read_size = key_length // 16
 
     with open(file, 'rb') as f:
         while True:

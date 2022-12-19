@@ -19,7 +19,7 @@ def encrypt_cmd(file_path, encrypted_file_name, key_length):
     if key_length % 1024 != 0:
         raise Exception("Key length should be a multiple of 1024")
 
-    encrypted_file_path, decryption_key = encrypt_file(file_path, encrypted_file_name)
+    encrypted_file_path, decryption_key = encrypt_file(file_path, encrypted_file_name, key_length)
 
     insert_file(database, {
         "name": encrypted_file_name,
@@ -40,13 +40,15 @@ def decrypt_cmd(encrypted_file_name, decryption_key):
     database = get_database()
     file_info = get_file_by_name(database, encrypted_file_name)[0]
     file_path = file_info[2]
-    return decrypt_file(file_path, decryption_key)
+    key_length = int(file_info[4])
+    return decrypt_file(file_path, decryption_key, key_length)
 
 
 def remove_cmd(encrypted_file_name, decryption_key):
     database = get_database()
     file_info = get_file_by_name(database, encrypted_file_name)[0]
     file_path = file_info[2]
-    decrypt_file(file_path, decryption_key)
+    key_length = int(file_info[4])
+    decrypt_file(file_path, decryption_key, key_length)
     delete_file(database, encrypted_file_name)
     return "Successfully removed!"
