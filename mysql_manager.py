@@ -34,7 +34,7 @@ def insert_file(database, file_info):
                   file_info["encryption_alg"], file_info["key_size"])
 
     cursor.execute(sql_statement, sql_values)
-    db.commit()
+    database.commit()
 
 
 def get_file_by_name(database, file_name):
