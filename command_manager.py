@@ -4,6 +4,7 @@ This module handles the commands given by the user:
 """
 from mysql_manager import *
 from file_manager import *
+import os
 
 
 def encrypt_cmd(file_path, encrypted_file_name, key_length):
@@ -92,4 +93,5 @@ def remove_cmd(encrypted_file_name, decryption_key):
     key_length = int(file_info[4])
     decrypt_file(file_path, decryption_key, key_length)
     delete_file(database, encrypted_file_name)
+    os.remove(file_path)
     return "Your file was successfully removed!"
